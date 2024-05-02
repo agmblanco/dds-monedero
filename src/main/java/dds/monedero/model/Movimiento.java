@@ -43,7 +43,6 @@ public class Movimiento {
   }
 
   public void agregateA(Cuenta cuenta) {
-    cuenta.setSaldo(calcularValor(cuenta));
     cuenta.agregarMovimiento(this);
   }
 

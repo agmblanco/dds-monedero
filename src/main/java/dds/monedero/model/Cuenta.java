@@ -11,15 +11,14 @@ import java.util.List;
 
 public class Cuenta {
 
-  private double saldo = 0;
   private List<Movimiento> movimientos = new ArrayList<>();
 
   public Cuenta() {
-    saldo = 0;
   }
 
   public Cuenta(double montoInicial) {
-    saldo = montoInicial;
+    //No puedo utilizar this.poner ya que obligaría a que el monto recibido sea positivo
+    this.movimientos.add(new Movimiento(LocalDate.now(), montoInicial));
   }
 
   public void setMovimientos(List<Movimiento> movimientos) {
@@ -70,11 +69,7 @@ public class Cuenta {
   }
 
   public double getSaldo() {
-    return saldo;
-  }
-
-  public void setSaldo(double saldo) {
-    this.saldo = saldo;
+    return movimientos.stream().mapToDouble(Movimiento::getMonto).sum();
   }
 
 }
