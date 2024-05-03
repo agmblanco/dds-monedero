@@ -42,10 +42,6 @@ public class Movimiento {
     return monto < 0;
   }
 
-  public void agregateA(Cuenta cuenta) {
-    cuenta.agregarMovimiento(this);
-  }
-
   public double calcularValor(Cuenta cuenta) {
       return cuenta.getSaldo() + getMonto();
   }

@@ -13,8 +13,7 @@ public class Cuenta {
 
   private List<Movimiento> movimientos = new ArrayList<>();
 
-  public Cuenta() {
-  }
+  public Cuenta() {}
 
   public Cuenta(double montoInicial) {
     //No puedo utilizar this.poner ya que obligaría a que el monto recibido sea positivo
@@ -34,7 +33,7 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cuanto).agregateA(this);
+    movimientos.add(new Movimiento(LocalDate.now(), cuanto));
   }
 
   public void sacar(double cuanto) {
@@ -50,7 +49,7 @@ public class Cuenta {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
           + " diarios, límite: " + limite);
     }
-    new Movimiento(LocalDate.now(), -1 * cuanto).agregateA(this);
+    movimientos.add(new Movimiento(LocalDate.now(), -1 * cuanto));
   }
 
   public void agregarMovimiento(Movimiento movimiento) {
