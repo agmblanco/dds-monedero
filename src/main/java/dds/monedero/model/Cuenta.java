@@ -61,22 +61,27 @@ public class Cuenta {
     movimientos.add(movimiento);
   }
 
+  public double calcularSumaMovimientos(Stream<Movimiento> movimientos){
+    return movimientos.mapToDouble(Movimiento::getMonto).sum();
+  }
+
   public double getMontoExtraidoA(LocalDate fecha) {
-    return getMovimientos().stream()
-        .filter(movimiento -> !movimiento.isDeposito() && movimiento.getFecha().equals(fecha))
-        .mapToDouble(Movimiento::getMonto)
-        .sum();
+    return calcularSumaMovimientos(getExtraccionesA(fecha));
+  }
+
+  public double getSaldo() {
+    return calcularSumaMovimientos(movimientos.stream());
   }
 
   public List<Movimiento> getMovimientos() {
     return movimientos;
   }
 
-  public double getSaldo() {
-    return movimientos.stream().mapToDouble(Movimiento::getMonto).sum();
-  }
-
   private Stream<Movimiento> getDepositosRealizados(){
     return getMovimientos().stream().filter(Movimiento::isDeposito);
+  }
+
+  private Stream<Movimiento> getExtraccionesA(LocalDate fecha){
+    return getMovimientos().stream().filter(movimiento -> movimiento.fueExtraido(fecha));
   }
 }
