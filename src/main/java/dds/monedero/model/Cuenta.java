@@ -8,6 +8,7 @@ import dds.monedero.exceptions.SaldoMenorException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Cuenta {
 
@@ -29,7 +30,7 @@ public class Cuenta {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
 
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
+    if (getDepositosRealizados().count() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
@@ -71,4 +72,7 @@ public class Cuenta {
     return movimientos.stream().mapToDouble(Movimiento::getMonto).sum();
   }
 
+  private Stream<Movimiento> getDepositosRealizados(){
+    return getMovimientos().stream().filter(Movimiento::isDeposito);
+  }
 }
