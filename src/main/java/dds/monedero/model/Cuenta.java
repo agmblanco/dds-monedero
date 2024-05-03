@@ -21,6 +21,10 @@ public class Cuenta {
     this.movimientos.add(new Movimiento(LocalDate.now(), montoInicial));
   }
 
+  /*
+    En mi opinión este método no debería existir ya que rompe el encapsulamiento pero como no
+    conozco el dominio, no puedo estár seguro que no existe una razon válida para su existencia.
+  */
   public void setMovimientos(List<Movimiento> movimientos) {
     this.movimientos = movimientos;
   }
